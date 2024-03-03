@@ -19,4 +19,6 @@ Lets go by file names.
 - `typings.py` - Dataclasses for `Message` and `FileExtract`.
 - `utilities.py` - Mostly request builders for JSON to be sent in `copilot.py`. Also manages authentication token cache.
 
+![Relationship diagram](https://github.com/CopilotC-Nvim/CopilotChat.nvim/assets/121417512/af1c7c87-648f-4323-8c18-43c8753f604d)
+
 </details>
