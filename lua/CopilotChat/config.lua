@@ -83,7 +83,7 @@ return {
   proxy = nil, -- [protocol://]host[:port] Use this proxy
   allow_insecure = false, -- Allow insecure server connections
 
-  yank_diff_register = '"' -- Allows overriding the register for yanking diffs
+  yank_diff_register = '"', -- Allows overriding the register for yanking diffs
 
   system_prompt = prompts.COPILOT_INSTRUCTIONS, -- System prompt to use
   model = 'gpt-4o-2024-05-13', -- GPT model to use, 'gpt-3.5-turbo', 'gpt-4', or `gpt-4o-2024-05-13`
