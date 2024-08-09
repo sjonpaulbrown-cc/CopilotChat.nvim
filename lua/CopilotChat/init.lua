@@ -810,7 +810,6 @@ function M.setup(config)
         end
     end
 
-    -- Helper function to recursively update configuration
     local function update_config(config, new_config)
         for key, value in pairs(new_config) do
             local keys = vim.split(key, ".", true)
@@ -826,8 +825,8 @@ function M.setup(config)
         end
     end
 
-    -- Function to parse arguments and extract configuration parameters
-    local function parse_args(args)
+    vim.api.nvim_create_user_command('CopilotChat', function(opts)
+        local args = opts.fargs
         local new_config = {}
         local filtered_args = {}
 
@@ -843,12 +842,6 @@ function M.setup(config)
                 table.insert(filtered_args, arg)
             end
         end
-
-        return new_config, filtered_args
-    end
-
-    vim.api.nvim_create_user_command('CopilotChat', function(opts)
-        local new_config, filtered_args = parse_args(opts.fargs)
 
         -- Update all config options that are passed in the command
         update_config(M.config, new_config)
