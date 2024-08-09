@@ -810,41 +810,24 @@ function M.setup(config)
         end
     end
 
-    local function update_config(config, new_config)
-        for key, value in pairs(new_config) do
-            local keys = vim.split(key, ".", true)
-            local last_key = table.remove(keys)
-            local tbl = config
-
-            for _, k in ipairs(keys) do
-                if tbl[k] == nil then tbl[k] = {} end
-                tbl = tbl[k]
-            end
-
-            tbl[last_key] = value
-        end
-    end
-
     vim.api.nvim_create_user_command('CopilotChat', function(opts)
         local args = opts.fargs
         local new_config = {}
         local filtered_args = {}
 
         for _, arg in ipairs(args) do
-            local key, value = arg:match("([^=]+)=([\"']?)(.-)%2$")
+            local key, value = arg:match("([^=]+)=([^=]+)")
             if key and value then
-                -- Remove surrounding quotes if present
-                if value:sub(1, 1) == '"' or value:sub(1, 1) == "'" then
-                    value = value:sub(2, -2)
-                end
+                -- Use the value as it is
                 new_config[key] = value
             else
                 table.insert(filtered_args, arg)
             end
         end
 
-        -- Update all config options that are passed in the command
-        update_config(M.config, new_config)
+        if new_config.auto_follow_cursor ~= nil then
+            M.config.auto_follow_cursor = new_config.auto_follow_cursor
+        end
 
         -- Join the filtered arguments back into a single string
         local filtered_args_str = table.concat(filtered_args, " ")
